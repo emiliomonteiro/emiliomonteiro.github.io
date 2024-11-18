@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Galeria de Imagens</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="gallery">
+            <div class="card" data-active="true">
+                <img src="img/image1.jpg" alt="Imagem 1">
+                <p>Plano de fundo do Windows XP</p>
+            </div>
+            <div class="card" data-active="false">
+                <img src="img/image2.jpg" alt="Imagem 2">
+                <p>Descrição da Imagem 2</p>
+            </div>
+            <div class="card" data-active="false">
+                <img src="img/image3.jpg" alt="Imagem 3">
+                <p>Descrição da Imagem 3</p>
+            </div>
+            <div class="card" data-active="false">
+                <img src="img/image4.jpg" alt="Imagem 4">
+                <p>Descrição da Imagem 4</p>
+            </div>
+        </section>
+
+        <div id="lightbox" class="lightbox">
+            <span class="close">;</span>
+            <img class="lightbox-content" id="lightbox-img">
+        </div>
+    </main>
+
+    <footer>
+        <p></p>
+        <button onclick="toggleDarkMode()">Modo Escuro</button>
+    </footer>
+</body>
+</html>
