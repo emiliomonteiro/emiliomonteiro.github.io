@@ -1,16 +1,73 @@
+:root {
+    --color-background: #f0f0f0; /* Default background color */
+    --color-header-footer: #cecccc; /* Default header/footer color */
+    --color-text: rgb(0, 0, 0); /* Default text color */
+    --color-link: rgb(0, 0, 0); /* Default link color */
+    --color-link-hover: #8aa0be; /* Default link hover color */
+    --color-card-background: white; /* Default card background color */
+    --color-card-shadow: rgba(0, 0, 0, 0.1); /* Default card shadow color */
+    --color-border: #ccc; /* Default border color */
+    --color-border-focus: #333; /* Default border focus color */
+}
+
+/* Darkmode */
+.dark-mode {
+    --color-background: #292828; /* Dark mode background color */
+    --color-header-footer: #383838; /* Dark mode header/footer color */
+    --color-text: #f0f0f0; /* Dark mode text color */
+    --color-link: #f0f0f0; /* Dark mode link color */
+    --color-link-hover: #3b4f69; /* Dark mode link hover color */
+    --color-card-background: #f0f0f0; /* Dark mode card background color */
+    --color-card-shadow: rgba(0, 0, 0, 0.1); /* Dark mode card shadow color */
+    --color-border: #ccc; /* Dark mode border color */
+    --color-border-focus: #333; /* Dark mode border focus color */
+}
+
+#dark-mode-toggle {
+    height: 24px;
+    width: 24px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--color-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 870px;
+    right: 10px;
+}
+
+#dark-mode-toggle svg {
+    fill: var(--color-text);
+    height: 18px;
+    width: 18px;
+}
+
+#dark-mode-toggle svg:last-child {
+    display: none;
+}
+
+.dark-mode #dark-mode-toggle svg:first-child {
+    display: none;
+}
+
+.dark-mode #dark-mode-toggle svg:last-child {
+    display: block;
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--color-background);
     display: flex;
     flex-direction: column;
 }
 
 header, footer {
-    background-color: #333;
-    color: white;
+    background-color: var(--color-header-footer);
+    color: var(--color-text);
     text-align: center;
     padding: 1em;
     display: flex;
@@ -20,7 +77,7 @@ header, footer {
 
 nav a {
     margin: 0 15px;
-    color: white;
+    color: var(--color-link);
     text-decoration: none;
     font-size: 1.2em;
     padding: 10px 15px;
@@ -29,8 +86,8 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #555;
-    color: #fff;
+    background-color: var(--color-link-hover);
+    color: var(--color-text);
 }
 
 main {
@@ -44,10 +101,10 @@ main {
 
 /* Estilos para o formulário de contato */
 .contact-form {
-    background-color: white;
+    background-color: var(--color-card-background);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--color-card-shadow);
     width: 100%;
     max-width: 500px;
     display: flex;
@@ -66,7 +123,7 @@ main {
 .contact-form textarea {
     width: calc(100% - 24px);
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     border-radius: 5px;
     font-size: 1em;
     transition: border-color 0.3s ease;
@@ -75,13 +132,13 @@ main {
 .contact-form input[type="text"]:focus,
 .contact-form input[type="email"]:focus,
 .contact-form textarea:focus {
-    border-color: #333;
+    border-color: var(--color-border-focus);
 }
 
 .contact-form button {
     padding: 12px;
-    background-color: #333;
-    color: white;
+    background-color: var(--color-header-footer);
+    color: var(--color-text);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -90,35 +147,36 @@ main {
 }
 
 .contact-form button:hover {
-    background-color: #555;
+    background-color: var(--color-link-hover);
 }
 
 /* Cards (aplicados apenas em index.html e galeria.html) */
 .gallery {
     display: flex;
     flex-wrap: wrap;
+    
     gap: 20px;
     justify-content: center;
 }
 
 .card {
-    background-color: white;
+    background-color: var(--color-card-background);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--color-card-shadow);
     overflow: hidden;
     width: 280px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
     cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 350px;
 }
 
 .card img {
     width: calc(100% - 20px);
+    border-radius: 21px;
     height: auto;
     object-fit: cover;
     transition: opacity 0.3s ease;
@@ -126,8 +184,9 @@ main {
 }
 
 .card h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin: 10px 0;
+    
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -135,8 +194,8 @@ main {
 }
 
 .card p {
-    font-size: 1em;
-    color: #555;
+    font-size: 1.2em;
+    color: #332e2e;
     display: none;
 }
 
@@ -155,7 +214,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--color-card-shadow);
 }
 
 /* Efeito de hover nos cards */
@@ -176,16 +235,7 @@ body.index .card:hover p {
     display: block;
 }
 
-/* Darkmode */
-.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
 
-.dark-mode header, .dark-mode footer {
-    background-color: #d3d3d3;
-    color: #333;
-}
 
 /* Lightbox */
 .lightbox {

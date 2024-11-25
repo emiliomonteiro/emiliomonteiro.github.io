@@ -2,6 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const gallerySection = document.querySelector('.gallery');
     const isIndexPage = document.body.classList.contains('index'); 
 
+    // Check local storage for dark mode status
+    const darkModeStatus = localStorage.getItem('darkMode');
+    if (darkModeStatus === 'enabled') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Add event listener for dark mode toggle button
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+
     fetch('data.json')
         .then(response => {
             if (!response.ok) {
@@ -86,11 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    document.querySelectorAll('header, footer, nav a').forEach(element => {
-        element.style.color = isDarkMode ? '#333' : 'white';
-    });
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    // Save the dark mode status in local storage
+    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
 }
 
 function validateForm() {
@@ -100,29 +108,21 @@ function validateForm() {
 
     if (name.length < 3) {
         alert('O nome deve ter pelo menos 3 letras.');
-        return;
+        return false;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
         alert('Por favor, insira um endereço de email válido.');
-        return;
+        return false;
     }
 
     if (feedback.length < 10) {
         alert('O feedback deve ter pelo menos 10 caracteres.');
-        return;
+        return false;
     }
 
-    const formData = {
-        name: name,
-        email: email,
-        feedback: feedback
-    };
-
-    localStorage.setItem('formData', JSON.stringify(formData));
-
-    alert('Formulário enviado com sucesso!');
+    return true;
 }
 
 window.addEventListener('load', () => {
