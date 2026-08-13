@@ -1,0 +1,19 @@
+{
+  "language": "pt-BR",
+  "usdToBrl": 5.5,
+  "spend": 100,
+  "couponBonusPct": 10,
+  "diamondsPerDollar": 1,
+  "tiers": [
+    { "minSpend": 0, "bonusPercent": 0 },
+    { "minSpend": 100, "bonusPercent": 10 },
+    { "minSpend": 150, "bonusPercent": 15 },
+    { "minSpend": 200, "bonusPercent": 20 },
+    { "minSpend": 400, "bonusPercent": 30 }
+  ],
+  "resellerUsdDiamond": 0.7,
+  "resellerUsdKK": 2.4,
+  "sellDiamonds": false,
+  "buyDiamonds": false,
+  "marketCashPerDiamond": 340000
+}
