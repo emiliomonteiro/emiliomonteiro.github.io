@@ -1,35 +1,111 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emilio Monteiro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase Decision Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="index">
+<body>
+  <div class="container">
     <header>
-        <h1></h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="galeria.html">Galeria</a>
-            <a href="contato.html">Contato</a>
-        </nav>
+      <div class="header-top">
+        <div class="lang-select">
+          <label for="language-select" data-i18n="language">Language</label>
+          <select id="language-select" aria-label="Language">
+            <option value="pt-BR" selected>Português (Brasil)</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+      </div>
+      <h1 data-i18n="title">Purchase Decision Calculator</h1>
+      <p class="subtitle" data-i18n="subtitle">Compare official shop vs reseller routes for Diamonds and KK</p>
     </header>
 
-    <main>
-        <section class="gallery">
-            <!-- Não precisa mexer, os cards são gerados automaticamente baseadas no JSON -->
-        </section>
-    </main>
+    <form id="calculator-form" novalidate>
+      <section class="card">
+        <h2 data-i18n="quickCompare">Quick Compare</h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="spend" data-i18n="spendLabel">Amount to spend ($)</label>
+            <input type="number" id="spend" name="spend" min="0" step="0.01" required>
+            <p class="hint" data-i18n="spendHint">Used for all route comparisons, including official shop tier lookup.</p>
+          </div>
+          <div class="field">
+            <label for="coupon-bonus" data-i18n="couponLabel">Coupon bonus (%)</label>
+            <input type="number" id="coupon-bonus" name="coupon-bonus" min="0" step="0.01">
+            <p class="hint" data-i18n="couponHint">Added on top of the matching spend tier bonus.</p>
+          </div>
+          <div class="field">
+            <label for="diamonds-per-dollar" data-i18n="diamondsPerUnitLabel">Base diamonds per $1</label>
+            <input type="number" id="diamonds-per-dollar" name="diamonds-per-dollar" min="0" step="0.01">
+            <p class="hint" data-i18n="diamondsPerUnitHint">Official shop base rate before tier and coupon bonuses.</p>
+          </div>
+        </div>
+      </section>
 
-    <footer>
-        <p></p>
-        <button id="dark-mode-toggle">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
-        </button>
-    </footer>
+      <section class="card">
+        <h2 data-i18n="officialShop">Official Shop Packages</h2>
+        <p class="hint" data-i18n="tiersHint">Spend breakpoints: bonus applies when amount spent reaches the threshold (e.g. $100 → 10%). 1 KK = 1,000,000 cash.</p>
+        <div class="table-header tier-header">
+          <span data-i18n="tierMinSpend">Min spend ($)</span>
+          <span data-i18n="tierBonus">Bonus (%)</span>
+          <span></span>
+        </div>
+        <div id="tier-rows"></div>
+        <button type="button" id="add-tier" class="btn-secondary" data-i18n="addTier">+ Add tier</button>
+      </section>
+
+      <section class="card">
+        <h2 data-i18n="resellerRates">Reseller Rates</h2>
+        <p class="hint" data-i18n="resellerHint">Resellers do not offer bonuses. Enter current fluctuating rates.</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="reseller-usd-diamond" data-i18n="resellerPerDiamond">$ per Diamond</label>
+            <input type="number" id="reseller-usd-diamond" name="reseller-usd-diamond" min="0" step="0.0001" required>
+          </div>
+          <div class="field">
+            <label for="reseller-usd-kk" data-i18n="resellerPerKK">$ per KK</label>
+            <input type="number" id="reseller-usd-kk" name="reseller-usd-kk" min="0" step="0.01" required>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 data-i18n="inGameMarket">In-Game Market</h2>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="sell-diamonds" name="sell-diamonds">
+            <span data-i18n="sellDiamonds">Sell Diamonds for KK (1% tax)</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="buy-diamonds" name="buy-diamonds">
+            <span data-i18n="buyDiamonds">Buy Diamonds with KK (no tax)</span>
+          </label>
+        </div>
+        <div class="field market-price-field" id="market-price-field" hidden>
+          <label for="market-cash-per-diamond" data-i18n="marketCashLabel">Cash per Diamond</label>
+          <input type="number" id="market-cash-per-diamond" name="market-cash-per-diamond" min="0" step="1" disabled>
+          <p class="hint" data-i18n="marketCashHint">Example: 340,000 cash = 0.34 KK per diamond</p>
+        </div>
+      </section>
+
+      <div id="form-errors" class="form-errors" role="alert" hidden></div>
+
+      <div class="actions">
+        <button type="submit" id="calculate-btn" class="btn-primary" data-i18n="calculate">Calculate</button>
+        <button type="button" id="reset-defaults-btn" class="btn-secondary" data-i18n="resetDefaults">Reset to defaults</button>
+      </div>
+      <p class="hint actions-hint" data-i18n-html="actionsHint">Defaults are loaded from <code>defaults.json</code>. Your last inputs are saved in this browser.</p>
+    </form>
+
+    <section class="card results-section" id="results-section" hidden>
+      <h2 data-i18n="resultsTitle">Results — Comparison</h2>
+      <div id="results-container"></div>
+    </section>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="calculator.js" defer></script>
 </body>
 </html>
