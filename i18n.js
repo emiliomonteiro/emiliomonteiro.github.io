@@ -94,7 +94,7 @@ const I18N = {
     calculate: "Calcular",
     resetDefaults: "Restaurar padrões",
     actionsHint:
-      'Padrões carregados de <code>defaults.json</code>. Seus últimos valores são salvos neste navegador.',
+      'Padrões são atualizados diariamente com os valores médios do mercado. Seus últimos valores são salvos neste navegador.',
     resultsTitle: "Resultados — Comparação",
     colRoute: "Rota",
     colSpend: "Gasto",
